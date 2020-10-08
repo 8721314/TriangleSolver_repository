@@ -1,1 +1,180 @@
 
+using System;
+using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+
+namespace TestProgram_Nunit
+{
+    public static class TriangleSolver
+    {
+        
+        public static string Analyst(int sideint1,int sideint2,int sideint3)
+        {
+            string result = string.Empty;
+          //  if (sideint1 + sideint2 >= sideint3 || sideint1 + sideint3 <= sideint2 || sideint2 + sideint3 <= sideint1)
+           // {
+               // if ((sideint1 > 0) && (sideint2 > 0) && (sideint3 > 0))
+                //{
+                    
+                    if ((sideint1 == sideint2) && (sideint2 == sideint3))
+                    {
+                        result = result + "Equilateral Triangle";
+                    }
+                     else if ((sideint1 == sideint2) && (sideint3 != sideint1) || (sideint2 == sideint3) && (sideint3 != sideint1) || (sideint3 == sideint1) && (sideint1 != sideint2))
+                    {
+                        result = result + "Isoceles Triangle";
+                    }
+                    else if (sideint1 != sideint2 && sideint2 != sideint3)
+                    {
+                        result = result + "scalene triangle";
+                    }
+               // }
+                
+           // }
+         //   else
+          //  {
+                Console.WriteLine("It given inputs doesnot form a triangle");
+
+          //  }
+            Console.WriteLine("The arms of the triangle form a {0}", result);
+            return (result);
+
+
+        }
+
+
+    }
+            
+}
+
+
+Main Code
+using System;
+using System.Security.Cryptography.X509Certificates;
+using TestProgram_Nunit;
+
+namespace TestProgram_Nunit
+{
+    public class Program
+    {
+
+        static void Main(string[] args)
+        {
+            string cont;
+            string userInput = string.Empty;
+            bool Validmenuselect = false;
+            string resultString = string.Empty;
+            
+
+                while (Validmenuselect == false)
+                {
+                do
+                {
+                    Console.WriteLine("1.Enter the triangle dimensions");
+                    Console.WriteLine("2.Exit");
+                    Console.WriteLine("Please select an option by entering a valid number from the ablove list");
+                    userInput = Console.ReadLine();
+                    if (userInput != "1" && userInput != "2")
+                    {
+                        Console.WriteLine("Please enter a Valid option");
+                    }
+                    else if (userInput == "2")
+                    {
+
+                        Console.WriteLine("Exiting from the program");
+                        System.Environment.Exit(0);
+                    }
+                    else
+                    {
+                        Validmenuselect = true;
+                        string side1, side2, side3;
+                        int sideint1, sideint2, sideint3;
+                        Console.WriteLine("Enter the first side");
+                        side1 = Console.ReadLine();
+                        Console.WriteLine("Enter the second side");
+                        side2 = Console.ReadLine();
+                        Console.WriteLine("Enter the third side");
+                        side3 = Console.ReadLine();
+                        if ((int.TryParse(side1, out sideint1)) && (int.TryParse(side2, out sideint2)) && (int.TryParse(side3, out sideint3)) && (sideint1 > 0) && (sideint2 > 0) && (sideint3 > 0))
+                        {
+                            if (sideint1 + sideint2 >= sideint3 || sideint1 + sideint3 <= sideint2 || sideint2 + sideint3 <= sideint1)
+                            {
+                                Console.WriteLine("It given points forms arms of triangle");
+                                TriangleSolver.Analyst(sideint1, sideint2, sideint3);
+
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("It given inputs doesnot form a triangle!!");
+                        }
+
+
+                    }
+
+                    Console.WriteLine("Do you want to continue?:(Y/N)");
+                    cont = Console.ReadLine();
+                } while ((cont == "Y") || (cont == "y"));
+
+            }
+            
+
+
+         }
+    
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+Nunit code:
+using System;
+using TestProgram_Nunit;
+
+namespace TrianglSolverTest
+{
+    public class TestTriangle
+    {
+        [TestFixture]
+        
+        public class TestTriangle1
+        {
+            [Test]
+            
+           public void  CheckTriangle()
+            {
+                int Ftriangle = 20;
+                int Striangle = 30;
+                int Ttriangle = 10;
+                string expect= "Equilateral Triangle";
+                string actual = TriangleSolver.Analyst(Ftriangle, Striangle,Ttriangle);
+                Assert.AreEqual(expect, actual);
+                                   
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
